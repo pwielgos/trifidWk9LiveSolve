@@ -1,7 +1,9 @@
 $( document ).ready( onReady );
 
+const verbose = true;
+
 function addTask(){
-    console.log( 'in addTask' );
+    if( verbose ) console.log( 'in addTask' );
     let objectToSend = {
         name: $( '#nameIn' ).val()
     } //end obj
@@ -10,55 +12,55 @@ function addTask(){
         url: '/tasks',
         data: objectToSend
     }).then( function( response ){
-        console.log( 'back from POST:', response );
+        if( verbose ) console.log( 'back from POST:', response );
         getTasks();
     }).catch( function( err ){
         alert( 'nope. console' );
-        console.log( err );
+        console.error( err );
     })
 }
 
 function completeTask(){
     const myId = $( this ).data( 'id' ); 
-    console.log( 'in completeTask, ID:', myId, `/tasks/${ myId }` );
+    if( verbose ) console.log( 'in completeTask, ID:', myId, `/tasks/${ myId }` );
     $.ajax({
         type: 'PUT',
         url: `/tasks/${ myId }`
     }).then( function( response ){
-        console.log( 'back from PUT with:', response );
+        if( verbose ) console.log( 'back from PUT with:', response );
         getTasks();
     }).catch( function( err ){
         alert( 'unable to update. see console for details' );
-        console.log( err );
+        console.error( err );
     }) //end AJAX
 }
 
 function deleteTask(){
     let myId = $( this ).data( 'id' );
-    console.log( 'in deleteTask:', myId );
+    if( verbose ) console.log( 'in deleteTask:', myId );
     $.ajax({
         type: 'DELETE',
         url: '/tasks/' + myId
     }).then( function( response ){
-        console.log( 'back from delete:', response );
+        if( verbose ) console.log( 'back from delete:', response );
         getTasks();
     }).catch( function( err ){
-        console.log( err );
+        console.error( err );
         alert( 'error deleting task, see console for deets' );
     })
 }
 
 function getTasks(){
-    console.log( 'in getTasks')
+    if( verbose ) console.log( 'in getTasks')
     $.ajax({
         type: 'GET',
         url: '/tasks'
     }).then( function( response ){
-        console.log( 'back from GET:', response );
+        if( verbose ) console.log( 'back from GET:', response );
         showTasks( response );
     }).catch( function ( err ){
         alert( 'error getting tasks. see console for details' );
-        console.log( err )
+        console.error( err )
     }) // end AJAX
 }
 
