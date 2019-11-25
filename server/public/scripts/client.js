@@ -9,19 +9,19 @@ function addTask(){
     } //end obj
     $.ajax({
         type: 'POST',
-        url: '/tasks',
+        url: '/task',
         data: objectToSend
     }).then( function( response ){
         if( verbose ) console.log( 'back from POST:', response );
         getTasks();
     }).catch( function( err ){
-        alert( 'nope. console' );
+        alert( 'nope. console, yo' );
         console.error( err );
     })
 }
 
 function completeTask(){
-    const myId = $( this ).data( 'id' ); 
+    const myId = $( this ).data( 'is' ); 
     if( verbose ) console.log( 'in completeTask, ID:', myId, `/tasks/${ myId }` );
     $.ajax({
         type: 'PUT',
@@ -41,7 +41,7 @@ function deleteTask(){
     $.ajax({
         type: 'DELETE',
         url: '/tasks/' + myId
-    }).then( function( response ){
+    }).then( function( resposne ){
         if( verbose ) console.log( 'back from delete:', response );
         getTasks();
     }).catch( function( err ){
@@ -83,11 +83,11 @@ function showTasks( tasks ){
             appendString += ` class="task complete"`;
         }
         else{
-            appendString += ` class="task incomplete"`;
+            appendString += ` class="task uncomplete"`;
         }
         appendString += `>${ task.task } `;
         appendString += `<button class="completeButton" data-id="${ task.id }">Complete</button>`;
-        appendString +=`<button class="deleteButton" data-id="${ task.id }">Delete</button></li>`;
+        appendString +=`<button class="deleteButton" data-id="${ task.id }">Delete</button>`;
         el.append( appendString );
     } //end for
 }

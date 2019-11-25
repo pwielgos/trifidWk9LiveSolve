@@ -1,14 +1,14 @@
 // requires
 const express = require( 'express' );
 const router = express.Router();
-const pool = require( '../pool' );
+const pool = require( 'pool' );
 
 // routes
 router.get( '/', ( req, res )=>{
     console.log( 'in GET' );
     let queryString = `SELECT * FROM tasks`;
     pool.query( queryString ).then( ( result )=>{
-        res.send( result.rows );
+        res.send( results.rows );
     }).catch( ( err )=>{
         console.log( err );
         res.sendStatus( 400 );
@@ -18,7 +18,7 @@ router.get( '/', ( req, res )=>{
 router.post( '/', ( req, res )=>{
     console.log( 'in POST:', req.body );
     let queryString = `INSERT INTO tasks ( task, status ) VALUES ( $1, $2 )`;
-    pool.query( queryString, [ req.body.name , 'false' ] ).then( ( result )=>{
+    pool.query( queryString, [ req.body.name ], 'false' ).then( ( result )=>{
         console.log( 'added!' );
         res.sendStatus( 201 );
     }).catch( ( err )=>{
@@ -39,9 +39,9 @@ router.delete( '/:id', ( req, res )=>{
     }) // end DELETE
 }) // end DELETE
 
-router.put( '/:id', ( req, res )=>{
+router.put( '/', ( req, res )=>{
     console.log( 'in PUT, completing task with ID:', req.params );
-    let queryString = `UPDATE tasks SET status='true' WHERE id = ($1)`;
+    let queryString = `UPDATE tasks SET status='true' WHERE id = (1)`;
     pool.query( queryString, [ req.params.id ] ).then( ( result )=>{
         console.log( 'updated' );
         res.sendStatus( 200 );
