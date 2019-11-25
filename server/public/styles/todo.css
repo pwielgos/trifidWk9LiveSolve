@@ -1,3 +1,15 @@
 body{
     background-color: blanchedalmond;
 }
+
+.task{
+    color: honeydew;
+}
+
+.complete{
+    background-color: green;
+}
+
+.incomplete{
+    background-color: red;
+}
