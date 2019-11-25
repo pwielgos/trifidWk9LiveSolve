@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require( 'body-parser' );
 
 // uses
-app.use( express.static( '/server/public' ) );
+app.use( express.static( 'server/public' ) );
 app.use( bodyParser.urlencoded( { extended: true } ) );
 
 // globals
